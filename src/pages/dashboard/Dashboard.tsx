@@ -1,5 +1,10 @@
+import PanelHeader from "../../components/PanelHeader/PanelHeader"
+import Container from "../../components/container/Container"
+
 export default () => {
   return (
-    <h1>dashboard</h1>
+    <Container>
+      <PanelHeader />
+    </Container>
   )
 }

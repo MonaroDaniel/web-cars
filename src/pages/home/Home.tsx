@@ -1,5 +1,47 @@
+import Container from "../../components/container/Container"
+
 export default () => {
   return (
-    <h1>Home</h1>
+    <Container>
+      <section className="bg-white p-4 rounded-lg w-full max-w-3xl mx-auto flex justify-center items-center">
+        <input
+          className="w-full border-2 rounded-lg h-9 px-3 outline-none"
+          type="text"
+          placeholder="digite o nome do carro..."
+        />
+        <button
+          className="bg-red-600 h-9 px-8 rounded-lg text-white font-semibold text-lg"
+        >
+          Buscar
+        </button>
+      </section>
+      <h1 className="font-bold text-center mt-6 text-2xl mb-4">
+        Carros novos e usados em todo o Brasil
+      </h1>
+
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section className="w-full
+         bg-white rounded-lg">
+          <img
+          className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvEnNA0Rse0YBZ2N2LLqXLREGZmYhhj8GfT64xxsanA&s"
+            alt="Carro"
+          />
+          <p className="font-bold mt-1 mb-2 px-2">MBW</p>
+
+          <div className="flex flex-col px-2">
+            <span className="text-zinc-700 mb-6">Ano 2016 | 23.33km</span>
+            <strong className="text-black font-semibold text-xl">R$ 190</strong>
+          </div>
+          <div className="w-full h-px bg-slate-200 my-2"></div>
+          <div className="px-2 pb-2">
+            <span className="text-zinc-700">
+              Campo grande ms
+            </span>
+          </div>
+        </section>
+      </main>
+
+    </Container>
   )
 }
