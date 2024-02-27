@@ -1,3 +1,3 @@
 # React + TypeScript + Vite
 
-Aplicação de gerenciamento na venda de veículos
+Aplicação de gerenciamento em venda de veículos
