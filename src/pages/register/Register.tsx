@@ -9,6 +9,7 @@ import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase
 import { auth } from '../../services/firebaseConnection'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
+import toast from 'react-hot-toast'
 
 const schema = z.object({
   name: z.string().min(1, 'O campo é obrigatório').min(6, 'A senha deve ter pelomenos 6 caracteres'),
@@ -51,7 +52,7 @@ export default () => {
           email: data.email,
           uid: user.user.uid,
         })
-        
+        toast.success('Bem vindo ao WebCarros!')
         navigate('/dashboard', { replace: true })
       })
       .catch((error) => {

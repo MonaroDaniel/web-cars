@@ -11,6 +11,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { db, storage } from "../../../services/firebaseConnection"
 import { addDoc, collection } from "firebase/firestore"
+import toast from "react-hot-toast"
 
 const schema = z.object({
   name: z.string().min(1, 'O campo nome é obrigatório'),
@@ -80,13 +81,14 @@ export default () => {
             url: downloadUrl
           }
           setCarImages((images) => [...images, imageItem])
+          toast.success('Imagem cadastrada com sucesso!')
         })
       })
   }
 
   function onSubmit(data: FormData) {
     if (carImages.length <= 0) {
-      alert('Envie alguma imagem deste carro!')
+      toast.error('Envie alguma imagem deste carro!')
       return;
     }
 
@@ -99,7 +101,7 @@ export default () => {
     })
 
     addDoc(collection(db, 'cars'), {
-      name: data.name,
+      name: data.name.toLocaleUpperCase(),
       model: data.model,
       whatsapp: data.whatsapp,
       city: data.city,
@@ -112,13 +114,14 @@ export default () => {
       uid: user?.uid,
       images: carListImages
     })
-    .then(() => {
-      reset()
-      setCarImages([])
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .then(() => {
+        toast.success('Carro cadastrado com sucesso!')
+        reset()
+        setCarImages([])
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
   async function handleDeleteImage(item: ImageItemProps) {
@@ -129,7 +132,7 @@ export default () => {
     try {
       await deleteObject(imageRef)
       setCarImages(carImages.filter((car) => car.url !== item.url))
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   }
@@ -161,8 +164,12 @@ export default () => {
         </button>
 
         {carImages.map(item => (
-          <div key={item.name} className="w-full h-32 flex items-center justify-center relative">
-            <button className="absolute" onClick={() => handleDeleteImage(item)}>
+          <div key={item.name} className="w-full h-32 flex items-center justify-center relative [&>button:nth-child(1)]:hover:visible">
+            <button
+              style={{backgroundColor: 'rgba(255, 255, 255, 0.464)'}}
+              className="flex items-center justify-center absolute invisible h-14 w-14 rounded-full"
+              onClick={() => handleDeleteImage(item)}
+            >
               <FiTrash size={28} color="#FFF" />
             </button>
             <img
